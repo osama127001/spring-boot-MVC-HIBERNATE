@@ -3,6 +3,11 @@
 
 This is a demo project that is developed using hibernate and Spring-MVC on Spring Boot.
 
+## Front Controller Working
+
+`Servlet` or `Dispatcher Servlet` is actually the `front-controller` of a Spring-MVC application. Web Servlet is configured automatically in spring-boot, there is no need to add boilerplate code for that.
+![](images/dserv.PNG)
+
 ## Project Setup
 
 * [This resource](https://www.boraji.com/spring-boot-creating-web-application-using-spring-mvc) helped in creating MVC project with Spring-boot.
@@ -130,5 +135,7 @@ This is a demo project that is developed using hibernate and Spring-MVC on Sprin
 ![](images/dir.PNG)
 
 </details>
+
+
 
 
