@@ -19,20 +19,21 @@ public class CustomerController {
 
     /*
      * Injecting the Customer-DAO class
-     * Using Field Injection */
+     * Using Constructor Injection */
     @Autowired
     public CustomerController(CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
 
-    //    /*
-//    * GET:
-//    * Returns all customers */
-//    @RequestMapping(path = "/list", method = RequestMethod.GET)
-//    public String listCustomers(Model model) {
-//        List<Customer> customers = customerDao.getCustomers();
-//        model.addAttribute("customers", customers);
-//        return "list-customers";
-//    }
+
+    /*
+    * GET:
+    * Returns all customers */
+    @RequestMapping("/list")
+    public String listCustomers(Model model) {
+        List<Customer> customers = customerDao.getCustomers();
+        model.addAttribute("customers", customers);
+        return "list-customers";
+    }
 
 }

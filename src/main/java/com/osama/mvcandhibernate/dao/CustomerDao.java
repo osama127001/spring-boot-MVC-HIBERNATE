@@ -6,20 +6,32 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 public class CustomerDao implements ICustomerDao {
 
+    public CustomerDao() {}
+
+
     /*
      * Creating Session Factory */
-    SessionFactory factory = new Configuration()
-            .configure("application.properties")
-            .addAnnotatedClass(Customer.class)
-            .buildSessionFactory();
+    private SessionFactory sessionFactory;
+
+
+    @Autowired
+    public CustomerDao(EntityManagerFactory factory) {
+        if(factory.unwrap(SessionFactory.class) == null){
+            throw new NullPointerException("factory is not a hibernate factory");
+        }
+        this.sessionFactory = factory.unwrap(SessionFactory.class);
+    }
+
 
 
     /*
@@ -28,11 +40,11 @@ public class CustomerDao implements ICustomerDao {
     @Override
     @Transactional
     public List<Customer> getCustomers() {
-        Session currentSession = factory.getCurrentSession();
+        Session currentSession = sessionFactory.openSession();
 
         /*
         * Import Query from "org.hibernate.query.Query;" */
-        Query<Customer> query = currentSession.createQuery("from customer", Customer.class);
+        Query<Customer> query = currentSession.createQuery("from Customer", Customer.class);
 
         return query.getResultList();
     }
