@@ -4,8 +4,8 @@ import com.osama.mvcandhibernate.dao.interfaces.ICustomerDao;
 import com.osama.mvcandhibernate.model.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -15,10 +15,11 @@ import java.util.List;
 public class CustomerDao implements ICustomerDao {
 
     /*
-    * Injecting the Hibernate Session Factory
-    * Using Field Injection*/
-    @Autowired
-    private SessionFactory sessionFactory;
+     * Creating Session Factory */
+    SessionFactory factory = new Configuration()
+            .configure("application.properties")
+            .addAnnotatedClass(Customer.class)
+            .buildSessionFactory();
 
 
     /*
@@ -27,7 +28,7 @@ public class CustomerDao implements ICustomerDao {
     @Override
     @Transactional
     public List<Customer> getCustomers() {
-        Session currentSession = sessionFactory.getCurrentSession();
+        Session currentSession = factory.getCurrentSession();
 
         /*
         * Import Query from "org.hibernate.query.Query;" */
