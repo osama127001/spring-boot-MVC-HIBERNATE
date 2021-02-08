@@ -4,13 +4,11 @@ import com.osama.mvcandhibernate.dao.interfaces.ICustomerDao;
 import com.osama.mvcandhibernate.model.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManagerFactory;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -46,9 +44,19 @@ public class CustomerDao implements ICustomerDao {
 
         /*
         * Import Query from "org.hibernate.query.Query;" */
-        Query<Customer> query = currentSession.createQuery("from Customer", Customer.class);
+        Query<Customer> query = currentSession.createQuery("FROM Customer ORDER BY lastName", Customer.class);
 
         return query.getResultList();
     }
+
+
+    /*
+    * Adding Customer in the Database*/
+    @Override
+    public void saveCustomer(Customer customer) {
+        Session currentSession = sessionFactory.openSession();
+        currentSession.save(customer);
+    }
+
 
 }

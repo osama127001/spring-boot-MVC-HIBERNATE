@@ -25,11 +25,21 @@ public class CustomerService implements ICustomerService {
 
 
     /*
-     * Get all customers */
+     * Get all customers
+     * The @Transactional Annotation removes the use of:
+     * "session.getTransaction().commit()" and "session.startTransaction" */
     @Override
     @Transactional
     public List<Customer> getCustomers() {
         return customerDao.getCustomers();
+    }
+
+
+    /*
+    * Saving Customer in the database */
+    @Override
+    public void saveCustomer(Customer customer) {
+        customerDao.saveCustomer(customer);
     }
 
 }
