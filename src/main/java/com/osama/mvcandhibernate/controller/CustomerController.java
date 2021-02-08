@@ -56,4 +56,14 @@ public class CustomerController {
         customerService.saveCustomer(customer);
         return "redirect:/customer/list";
     }
+
+
+    /*
+     * Redirecting the user to a form to update Customer */
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("customerId") int id, Model model) {
+        Customer customer = customerService.getCustomer(id);
+        model.addAttribute("customer", customer);
+        return "customer-form";
+    }
 }

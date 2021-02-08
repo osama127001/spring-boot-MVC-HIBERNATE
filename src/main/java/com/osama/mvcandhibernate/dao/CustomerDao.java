@@ -55,7 +55,17 @@ public class CustomerDao implements ICustomerDao {
     @Override
     public void saveCustomer(Customer customer) {
         Session currentSession = sessionFactory.openSession();
-        currentSession.save(customer);
+        currentSession.saveOrUpdate(customer);
+    }
+
+
+    /*
+    * Get customer from DB based on the id */
+    @Override
+    public Customer getCustomer(int id) {
+        Session currentSession = sessionFactory.openSession();
+        Customer customer = currentSession.get(Customer.class, id);
+        return customer;
     }
 
 

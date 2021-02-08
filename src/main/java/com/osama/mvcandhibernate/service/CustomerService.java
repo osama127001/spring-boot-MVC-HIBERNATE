@@ -36,6 +36,15 @@ public class CustomerService implements ICustomerService {
 
 
     /*
+    * Get customer by Id from DAO*/
+    @Override
+    @Transactional
+    public Customer getCustomer(int id) {
+        return customerDao.getCustomer(id);
+    }
+
+
+    /*
     * Saving Customer in the database */
     @Override
     public void saveCustomer(Customer customer) {
