@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<link rel="stylesheet"
+      type="text/css"
+      href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 
 <!DOCTYPE html>
 
@@ -13,7 +17,7 @@
     <body>
 
         <div id="wrapper">
-            <div id="content">
+            <div id="header">
                 <h2>CRM - Customer Relationship Manager</h2>
             </div>
         </div>

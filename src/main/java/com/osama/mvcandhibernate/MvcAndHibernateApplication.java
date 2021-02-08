@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 public class MvcAndHibernateApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MvcAndHibernateApplication.class, args);
 
 		/*
 		* Testing database Connection
@@ -23,6 +22,11 @@ public class MvcAndHibernateApplication {
 		} catch (Exception exp) {
 			System.out.println(exp.getMessage());
 		}
+
+
+		/*
+		* Running the App */
+		SpringApplication.run(MvcAndHibernateApplication.class, args);
 
 	}
 

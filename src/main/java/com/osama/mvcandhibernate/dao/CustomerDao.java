@@ -24,6 +24,9 @@ public class CustomerDao implements ICustomerDao {
     private SessionFactory sessionFactory;
 
 
+    /*
+    * Injecting Session Factory
+    * Constructor Injection */
     @Autowired
     public CustomerDao(EntityManagerFactory factory) {
         if(factory.unwrap(SessionFactory.class) == null){
@@ -38,7 +41,6 @@ public class CustomerDao implements ICustomerDao {
     * The @Transactional Annotation removes the use of:
     * "session.getTransaction().commit()" and "session.startTransaction" */
     @Override
-    @Transactional
     public List<Customer> getCustomers() {
         Session currentSession = sessionFactory.openSession();
 
