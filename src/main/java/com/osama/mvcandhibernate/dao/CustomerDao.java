@@ -68,5 +68,13 @@ public class CustomerDao implements ICustomerDao {
         return customer;
     }
 
+    /*
+    * Delete Customer from DB */
+    @Override
+    public void deleteCustomer(Customer customer) {
+        Session currentSession = sessionFactory.openSession();
+        currentSession.remove(customer);
+    }
+
 
 }

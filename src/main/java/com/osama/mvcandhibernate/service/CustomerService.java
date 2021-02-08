@@ -46,9 +46,16 @@ public class CustomerService implements ICustomerService {
 
     /*
     * Saving Customer in the database */
+    @Transactional
     @Override
     public void saveCustomer(Customer customer) {
         customerDao.saveCustomer(customer);
+    }
+
+    @Transactional
+    @Override
+    public void deleteCustomer(int id) {
+        customerDao.deleteCustomer(this.getCustomer(id));
     }
 
 }

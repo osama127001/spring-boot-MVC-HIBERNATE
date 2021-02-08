@@ -39,7 +39,7 @@ public class CustomerController {
 
 
     /*
-    * Redirecting the user to a form to add Customer */
+     * Redirecting the user to a form to add Customer */
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model) {
         Customer customer = new Customer();
@@ -49,8 +49,8 @@ public class CustomerController {
 
 
     /*
-    * POST:
-    * Add customer in the database */
+     * POST:
+     * Add customer in the database */
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
         customerService.saveCustomer(customer);
@@ -65,5 +65,14 @@ public class CustomerController {
         Customer customer = customerService.getCustomer(id);
         model.addAttribute("customer", customer);
         return "customer-form";
+    }
+
+
+    /*
+     * Deleting Customer*/
+    @GetMapping("/delete")
+    public String deleteCustomer(@RequestParam("customerId") int id) {
+        customerService.deleteCustomer(id);
+        return "redirect:/customer/list";
     }
 }
