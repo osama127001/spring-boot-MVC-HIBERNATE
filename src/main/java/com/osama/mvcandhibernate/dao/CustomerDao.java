@@ -6,6 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManagerFactory;
@@ -14,7 +17,7 @@ import java.util.List;
 @Repository
 public class CustomerDao implements ICustomerDao {
 
-    public CustomerDao() {}
+    private JdbcTemplate jdbcTemplate;
 
 
     /*
@@ -26,11 +29,9 @@ public class CustomerDao implements ICustomerDao {
     * Injecting Session Factory
     * Constructor Injection */
     @Autowired
-    public CustomerDao(EntityManagerFactory factory) {
-        if(factory.unwrap(SessionFactory.class) == null){
-            throw new NullPointerException("factory is not a hibernate factory");
-        }
+    public CustomerDao(EntityManagerFactory factory, JdbcTemplate jdbcTemplate) {
         this.sessionFactory = factory.unwrap(SessionFactory.class);
+        this.jdbcTemplate = jdbcTemplate;
     }
 
 
@@ -44,9 +45,13 @@ public class CustomerDao implements ICustomerDao {
 
         /*
         * Import Query from "org.hibernate.query.Query;" */
-        Query<Customer> query = currentSession.createQuery("FROM Customer ORDER BY lastName", Customer.class);
+        // Query<Customer> query = currentSession.createQuery("FROM Customer ORDER BY lastName", Customer.class);
+        int id = 1;
+        return jdbcTemplate.query("SELECT * FROM customer WHERE id = ?"
+                , new Object[]{id}
+                , new BeanPropertyRowMapper(Customer.class));
 
-        return query.getResultList();
+//        return query.getResultList();
     }
 
 
